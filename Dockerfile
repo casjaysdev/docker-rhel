@@ -68,7 +68,7 @@ WORKDIR /root
 
 RUN set -e; \
   echo "Setting up prerequisites"; \
-  yum makecache && yum install -yy bash; \\
+  yum makecache && yum install -yy bash; \
   BASH_CMD="$(command -v bash 2>/dev/null|| true)"; \
   [ -x "$BASH_CMD" ] && { rm -rf "/bin/sh" || true; } && ln -sf "$BASH_CMD" "/bin/sh" || true; \
   [ -n "$BASH_CMD" ] && sed -i 's|root:x:.*|root:x:0:0:root:/root:'$BASH_CMD'|g' "/etc/passwd" || true
