@@ -83,12 +83,12 @@ COPY --from=gosu /usr/local/bin/gosu /usr/local/bin/gosu
 
 RUN echo "Initializing the system"; \
   $SHELL_OPTS; \
+  mkdir -p "${DEFAULT_DATA_DIR}" "${DEFAULT_CONF_DIR}" "${DEFAULT_TEMPLATE_DIR}" "/root/docker/setup" "/etc/profile.d"; \
   if [ -f "/root/docker/setup/00-init.sh" ];then echo "Running the init script";bash "/root/docker/setup/00-init.sh";echo "Done running the init script";fi; \
   echo ""
 
 RUN echo "Creating and editing system files "; \
   $SHELL_OPTS; \
-  mkdir -p "${DEFAULT_DATA_DIR}" "${DEFAULT_CONF_DIR}" "${DEFAULT_TEMPLATE_DIR}" "/root/docker/setup" "/etc/profile.d"; \
   touch "/etc/profile" "/root/.profile"; \
   pkmgr update && pkmgr install epel-release; crb enable || true; \
   if [ -f "/root/docker/setup/01-system.sh" ];then echo "Running the system script";bash "/root/docker/setup/01-system.sh";echo "Done running the system script";fi; \
