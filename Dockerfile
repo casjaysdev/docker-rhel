@@ -2,7 +2,7 @@
 # Docker image for almalinux using the rhel template
 ARG IMAGE_NAME="almalinux"
 ARG PHP_SERVER="almalinux"
-ARG BUILD_DATE="202408111004"
+ARG BUILD_DATE="202408111028"
 ARG LANGUAGE="en_US.UTF-8"
 ARG TIMEZONE="America/New_York"
 ARG WWW_ROOT_DIR="/usr/share/httpd/default"
@@ -71,8 +71,8 @@ COPY ./rootfs/usr/local/bin/. /usr/local/bin/
 RUN set -e; \
   echo "Setting up prerequisites"; \
   yum makecache && yum install -yy bash; \
-  SH_CMD="$(which sh 2>/dev/null)"; \
-  BASH_CMD="$(which bash 2>/dev/null)"; \
+  SH_CMD="$(which sh 2>/dev/null||command -v sh 2>/dev/null)"; \
+  BASH_CMD="$(which bash 2>/dev/null||command -v bash 2>/dev/null)"; \
   [ -x "$BASH_CMD" ] && symlink "$BASH_CMD" "/bin/sh" || true; \
   [ -x "$BASH_CMD" ] && symlink "$BASH_CMD" "/usr/bin/sh" || true; \
   [ -x "$BASH_CMD" ] && [ "$SH_CMD" != "/bin/sh"] && symlink "$BASH_CMD" "$SH_CMD" || true; \
