@@ -106,6 +106,14 @@ RUN echo "Setting up and installing packages"; \
   if [ -n "${PACK_LIST}" ];then echo "Installing packages: $PACK_LIST";echo "${PACK_LIST}" >/root/docker/setup/packages.txt;pkmgr install ${PACK_LIST};fi; \
   echo ""
 
+RUN echo "Setting up dev system" \
+  yum install -y git curl wget \
+  bash -c "$(curl -q -LSsf "https://github.com/casjay-base/centos/raw/main/root/.local/bin/fetch-repo-file")" \
+  PHP_VER="7.4";dnf module -y reset php;dnf module -y install php:remi-$PHP_VER \
+  sudo bash -c "$(curl -q -LSsf "https://github.com/pkmgr/centos/raw/main/scripts/min.sh")" \
+  pkg="$(curl -q -LSsf "https://github.com/pkmgr/centos/raw/main/lists/development.list" )" \
+  [ -n "$pkg" ] && yum install -yy $pkg
+
 RUN echo "Initializing packages before copying files to image"; \
   $SHELL_OPTS; \
   if [ -f "/root/docker/setup/02-packages.sh" ];then echo "Running the packages script";/root/docker/setup/02-packages.sh||{ echo "Failed to execute /root/docker/setup/02-packages.sh" >&2 && exit 10; };echo "Done running the packages script";fi; \
