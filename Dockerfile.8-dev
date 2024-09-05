@@ -16,7 +16,7 @@ ARG SHELL_OPTS="set -e -o pipefail"
 
 ARG SERVICE_PORT=""
 ARG EXPOSE_PORTS=""
-ARG PHP_VERSION="system"
+ARG PHP_VERSION="7.4"
 ARG NODE_VERSION="system"
 ARG NODE_MANAGER="system"
 
@@ -110,6 +110,15 @@ RUN echo "Initializing packages before copying files to image"; \
   $SHELL_OPTS; \
   if [ -f "/root/docker/setup/02-packages.sh" ];then echo "Running the packages script";/root/docker/setup/02-packages.sh||{ echo "Failed to execute /root/docker/setup/02-packages.sh" >&2 && exit 10; };echo "Done running the packages script";fi; \
   echo ""
+
+RUN echo "Setting up dev system"; \
+  bash -c "$(curl -q -LSsf "https://github.com/casjay-base/centos/raw/main/root/.local/bin/fetch-repo-file")"; \
+  [ ! -d  "/usr/local/share/CasjaysDev/scripts" ] && \
+  git clone -q https://github.com/casjay-dotfiles/scripts "/usr/local/share/CasjaysDev/scripts" && \
+  /usr/local/share/CasjaysDev/scripts/install.sh; \
+  dnf module -y reset php;dnf module -y install php:remi-$PHP_VERSION; \
+  pkg="$(curl -q -LSsf "https://github.com/pkmgr/centos/raw/main/lists/development.list")"; \
+  [ -n "$pkg" ] && yum install -yy --skip-broken "$pkg"
 
 COPY ./rootfs/. /
 COPY ./Dockerfile.8 /root/docker/Dockerfile
