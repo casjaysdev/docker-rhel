@@ -61,7 +61,7 @@ ENV TZ="${TIMEZONE}"
 ENV TIMEZONE="${TZ}"
 ENV LANG="${LANGUAGE}"
 ENV TERM="xterm-256color"
-ENV HOSTNAME="casjaysdevdocker-almalinux"
+ENV HOSTNAME="casjaysdev-almalinux"
 
 USER ${USER}
 WORKDIR /root

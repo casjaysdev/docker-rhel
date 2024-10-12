@@ -13,25 +13,24 @@ almalinux README
 ## Automatic install/update  
   
 ```shell
-dockermgr update almalinux
+dockermgr update os almalinux
 ```
   
 ## Install and run container
   
 ```shell
-mkdir -p "$HOME/.local/share/srv/docker/almalinux/rootfs"
+mkdir -p "/var/lib/srv/root/docker/casjaysdev/almalinux/latest"
 git clone "https://github.com/dockermgr/almalinux" "$HOME/.local/share/CasjaysDev/dockermgr/almalinux"
-cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/almalinux/rootfs/." "$HOME/.local/share/srv/docker/almalinux/rootfs/"
+cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/almalinux/rootfs/." "/var/lib/srv/root/docker/casjaysdev/almalinux/latest/"
 docker run -d \
 --restart always \
 --privileged \
---name casjaysdevdocker-almalinux \
+--name casjaysdev-almalinux-latest \
 --hostname almalinux \
 -e TZ=${TIMEZONE:-America/New_York} \
--v "$HOME/.local/share/srv/docker/casjaysdevdocker-almalinux/rootfs/data:/data:z" \
--v "$HOME/.local/share/srv/docker/casjaysdevdocker-almalinux/rootfs/config:/config:z" \
--p 80:80 \
-casjaysdevdocker/almalinux:latest
+-v "/var/lib/srv/root/docker/casjaysdev/almalinux/latest/data:/data:z" \
+-v "/var/lib/srv/root/docker/casjaysdev/almalinux/latest/config:/config:z" \
+casjaysdev/almalinux:latest
 ```
   
 ## via docker-compose  
@@ -40,39 +39,31 @@ casjaysdevdocker/almalinux:latest
 version: "2"
 services:
   ProjectName:
-    image: casjaysdevdocker/almalinux
-    container_name: casjaysdevdocker-almalinux
+    image: casjaysdev/almalinux
+    container_name: casjaysdev-almalinux-latest
     environment:
       - TZ=America/New_York
       - HOSTNAME=almalinux
     volumes:
-      - "$HOME/.local/share/srv/docker/casjaysdevdocker-almalinux/rootfs/data:/data:z"
-      - "$HOME/.local/share/srv/docker/casjaysdevdocker-almalinux/rootfs/config:/config:z"
-    ports:
-      - 80:80
+      - "/var/lib/srv/root/docker/casjaysdev/almalinux/latest/data:/data:z"
+      - "/var/lib/srv/root/docker/casjaysdev/almalinux/latest/config:/config:z"
     restart: always
 ```
   
 ## Get source files  
   
 ```shell
-dockermgr download src casjaysdevdocker/almalinux
-```
-  
-OR
-  
-```shell
-git clone "https://github.com/casjaysdevdocker/almalinux" "$HOME/Projects/github/casjaysdevdocker/almalinux"
+dockermgr download src os almalinux
 ```
   
 ## Build container  
   
 ```shell
-cd "$HOME/Projects/github/casjaysdevdocker/almalinux"
-buildx 
+git clone "https://github.com/dockersrc/almalinux" "$HOME/Projects/github/dockersrc/almalinux"
+cd "$HOME/Projects/github/dockersrc/almalinux" && buildx all 
 ```
   
 ## Authors  
   
 🤖 casjay: [Github](https://github.com/casjay) 🤖  
-⛵ casjaysdevdocker: [Github](https://github.com/casjaysdevdocker) [Docker](https://hub.docker.com/u/casjaysdevdocker) ⛵  
+⛵ casjaysdevdocker: [Github](https://github.com/dockersrc) [Docker](https://hub.docker.com/u/casjaysdevdocker) ⛵  

@@ -61,7 +61,7 @@ ENV TZ="${TIMEZONE}"
 ENV TIMEZONE="${TZ}"
 ENV LANG="${LANGUAGE}"
 ENV TERM="xterm-256color"
-ENV HOSTNAME="casjaysdevdocker-almalinux"
+ENV HOSTNAME="casjaysdev-almalinux"
 
 USER ${USER}
 WORKDIR /root
@@ -230,12 +230,12 @@ LABEL org.opencontainers.image.license="${LICENSE}"
 LABEL org.opencontainers.image.build-date="${BUILD_DATE}"
 LABEL org.opencontainers.image.version="${BUILD_VERSION}"
 LABEL org.opencontainers.image.schema-version="${BUILD_VERSION}"
-LABEL org.opencontainers.image.url="https://hub.docker.com/r/casjaysdevdocker/almalinux"
-LABEL org.opencontainers.image.url.source="https://hub.docker.com/r/casjaysdevdocker/almalinux"
+LABEL org.opencontainers.image.url="https://hub.docker.com/r/casjaysdev/almalinux"
+LABEL org.opencontainers.image.url.source="https://hub.docker.com/r/casjaysdev/almalinux"
 LABEL org.opencontainers.image.vcs-type="Git"
 LABEL org.opencontainers.image.vcs-ref="${BUILD_VERSION}"
-LABEL org.opencontainers.image.vcs-url="https://github.com/casjaysdevdocker/almalinux"
-LABEL org.opencontainers.image.documentation="https://github.com/casjaysdevdocker/almalinux"
+LABEL org.opencontainers.image.vcs-url="https://github.com/dockersrc/almalinux"
+LABEL org.opencontainers.image.documentation="https://github.com/dockersrc/almalinux"
 LABEL com.github.containers.toolbox="false"
 
 ENV ENV=~/.bashrc
