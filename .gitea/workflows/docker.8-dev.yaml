@@ -1,4 +1,4 @@
-name: release-tag
+name: almalinux-8-dev
 
 on: push
 

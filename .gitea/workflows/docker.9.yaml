@@ -1,4 +1,4 @@
-name: release-tag
+name: almalinux-9
 
 on: push
 

@@ -1,4 +1,4 @@
-name: almalinux-9-dev
+name: almalinux-10
 
 on: push
 
@@ -19,13 +19,13 @@ jobs:
       - name: Get Meta
         id: meta
         env:
-          TAG: 9-dev
+          TAG: 10
           ORG: casjaysdev
           HUB: docker.io
         run: |
           echo DATE_TAG=$(date +'%y%m') >> $GITHUB_OUTPUT
           echo REPO_VERSION=$(git describe --tags --always | sed 's/^v//') >> $GITHUB_OUTPUT
-          echo DOCKER_TAG=$([ -n "$TAG" ] && echo $TAG || echo "9-dev") >> $GITHUB_OUTPUT
+          echo DOCKER_TAG=$([ -n "$TAG" ] && echo $TAG || echo "10") >> $GITHUB_OUTPUT
           echo DOCKER_HUB=$([ -n "$HUB" ] && echo $HUB || echo "docker.io") >> $GITHUB_OUTPUT
           echo DOCKER_ORG=$([ -n "$ORG" ] && echo "$ORG" || echo "casjaysdev") >> $GITHUB_OUTPUT
           echo REPO_NAME=$(echo ${GITHUB_REPOSITORY} | awk -F"/" '{print $2}' | sed 's|^docker-||g') >> $GITHUB_OUTPUT
