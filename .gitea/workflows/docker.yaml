@@ -3,7 +3,7 @@ name: almalinux-latest
 on: push
 
 jobs:
-  release-image:
+  almalinux-latest:
     runs-on: act_runner
     container:
       image: catthehacker/ubuntu:act-latest
