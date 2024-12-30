@@ -112,6 +112,7 @@ RUN echo "Initializing packages before copying files to image"; \
   echo ""
 
 RUN echo "Setting up dev system"; \
+  if [ -f "/usr/local/bin/pkmgr" ] ; then rm -Rf "/usr/local/bin/pkmgr"; fi; \
   bash -c "$(curl -q -LSsf "https://github.com/casjay-base/centos/raw/main/root/.local/bin/fetch-repo-file")"; \
   [ ! -d  "/usr/local/share/CasjaysDev/scripts" ] && \
   git clone -q https://github.com/casjay-dotfiles/scripts "/usr/local/share/CasjaysDev/scripts" && \
